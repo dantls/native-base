@@ -1,17 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Text } from 'react-native';
-import { NativeBaseProvider , Box} from 'native-base';
+import { Archivo_400Regular, 
+  Archivo_500Medium, 
+  useFonts as useArchivoFonts} from '@expo-google-fonts/archivo';
+import { Inter_400Regular, 
+  Inter_500Medium, Inter_600SemiBold, 
+  Inter_700Bold ,
+  useFonts as useInterFonts} from '@expo-google-fonts/inter';
+import { NativeBaseProvider,
+  Box} from 'native-base';
+import { theme } from '../native-base.config';
+import { Home } from './pages/Home';
 
 export default function App() {
+  const [interFontsLoaded] = useInterFonts({
+    Inter_400Regular, 
+    Inter_500Medium, 
+    Inter_600SemiBold, 
+    Inter_700Bold ,
+  });
+
+  const [archivoFontsLoaded] = useArchivoFonts({
+    Archivo_400Regular, 
+    Archivo_500Medium, 
+  });
+
+  if(!interFontsLoaded && !archivoFontsLoaded){
+    return <></>
+  }
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={theme}>
+      <StatusBar style="light" />
+      
+
       <Box
         safeArea
         flex="1"
+        backgroundColor="primary.500"
       >
-        <Text>Teste</Text>
-        <StatusBar style="auto" />
+        <Home />
       </Box>
     </NativeBaseProvider>
   );
